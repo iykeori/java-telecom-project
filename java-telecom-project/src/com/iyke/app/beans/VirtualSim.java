@@ -6,6 +6,7 @@ public class VirtualSim{
     private int simNumber;
     private UUID simId;
     private int simActiveState;
+    private static int code = 0;
 
     //constructor
     public VirtualSim(int simNumber, int simActiveState) {
@@ -33,6 +34,19 @@ public class VirtualSim{
 
     public void setSimActiveState(int simActiveState) {
         this.simActiveState = simActiveState;
+    }
+
+    //Generate Phone Number
+    public String generatePhoneNumber(){
+        // Create an instance of the Random class
+        Random random = new Random();
+         // Generate a 6-digit random number
+        int min = 100000;
+        int max = 999999; 
+
+        int randomNumber = random.nextInt(max - min + 1) + min;
+
+        return "0803" + randomNumber + code++;
     }
 
     @Override
