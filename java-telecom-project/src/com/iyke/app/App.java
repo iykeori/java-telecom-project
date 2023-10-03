@@ -45,6 +45,7 @@ public class App {
                                 if (simDetails != null){
                                     System.out.println("Your Valid Virtual Number is  "+ simDetails.getSim().getSimNumber().toString());
                                     //prompt customer to re-enter the correct number
+                                    continue; 
                                 }else{
                                     // if customer does not have a virtual number, let him purchase VN
                                 }
