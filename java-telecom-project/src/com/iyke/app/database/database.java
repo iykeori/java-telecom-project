@@ -26,8 +26,12 @@ public class Database{
   }
 
   public void populateVirtualSim(){
-    sim[0] = new VirtualSim("08033362261", 1);
-    sim[0] = new VirtualSim("09033367781", 0);
+    for (int i = 0; i < sim.length; i++) {
+      sim[i] = new VirtualSim(VirtualSim.generatePhoneNumber(), 0);
+    }
+
+    // for test sake
+    sim[0].setSimActiveState(1);
   }
 
   
@@ -37,10 +41,12 @@ public class Database{
 
 
   //validate sim number
-  public CustomerSim validateSimNumber(int simNumber){
-    String phoneNumber = Integer.toString(simNumber);
+  public CustomerSim validateSimNumber(String simNumber){
     for(CustomerSim cSim : getCustomerSims()){
-      if(cSim.getSim().getSimNumber().trim().equals(phoneNumber) && cSim.getSim().getSimActiveState() == 1){
+      boolean isMatch = cSim.getSim().getSimNumber().trim().equals(simNumber.trim());
+      boolean isActive = cSim.getSim().getSimActiveState() == 1;
+
+      if( isMatch && isActive ){
         return cSim;
       }
     }

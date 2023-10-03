@@ -38,7 +38,7 @@ public class VirtualSim{
     }
 
     //Generate Phone Number
-    public String generatePhoneNumber(){
+    public static String generatePhoneNumber(){
         // Create an instance of the Random class
         Random random = new Random();
          // Generate a 6-digit random number
