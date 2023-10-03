@@ -72,7 +72,7 @@ public class App {
     private Customer registerCustomer() {
         Scanner scan = new Scanner(System.in);
         String customerCode, name, address, phone, gender, email;
-        Gender genderEnum;
+        Gender genderEnum = null;
     
         while (true) {
     
