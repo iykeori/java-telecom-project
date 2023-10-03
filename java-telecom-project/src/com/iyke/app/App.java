@@ -18,15 +18,16 @@ public class App {
 
     public void welcome(){
         Scanner scan = new Scanner(System.in);
-        int simNumber;
+        String simNumber;
 
         while(true){
             try{
                 //prompt user for virtual Number
                 System.out.println("Enter your Virtual Sim Number: ");
 
-                if (scan.hasNextInt()){
-                    simNumber = scan.nextInt();
+                if (scan.hasNext()){
+                    simNumber = scan.nextLine();
+                    // System.out.println("Entered number: " + simNumber);
 
                     //Run first Validation on sim number
                     boolean isValid = Validations.validateSimNumberEntry(simNumber);
@@ -52,6 +53,9 @@ public class App {
                                 // if customer does not exit, register customer
                             }
                         }
+                    } else {
+                      System.out.println("Number does not exist!");
+                      continue;
                     }
 
                 } else{
@@ -71,7 +75,7 @@ public class App {
     private Customer registerCustomer() {
         Scanner scan = new Scanner(System.in);
         String customerCode, name, address, phone, gender, email;
-        Gender genderEnum;
+        Gender genderEnum = null;
     
         while (true) {
     
