@@ -5,6 +5,7 @@ import java.util.Scanner;
 import com.iyke.app.beans.Customer;
 import com.iyke.app.beans.CustomerSim;
 import com.iyke.app.database.Database;
+import com.iyke.app.util.Gender;
 import com.iyke.app.util.Validations;
 
 public class App {
@@ -66,6 +67,64 @@ public class App {
         }
     
     }
+
+    private Customer registerCustomer() {
+        Scanner scan = new Scanner(System.in);
+        String customerCode, name, address, phone, gender, email;
+        Gender genderEnum;
+    
+        while (true) {
+    
+          System.out.println("\nCustomer registration terminal.\nPlease provide your customer registration information");
+    
+          System.out.print("Enter name: ");
+          name = scan.nextLine();
+          if (!Validations.validateField("name", name)) {
+            System.out.println("Invalid input. Please try again.");
+            continue;
+          }
+    
+          System.out.print("Enter address: ");
+          address = scan.nextLine();
+          if (!Validations.validateField("address", address)) {
+            System.out.println("Invalid input. Please try again.");
+            continue;
+          }
+    
+          System.out.print("Enter phone: ");
+          phone = scan.nextLine();
+          if (!Validations.validateField("phone", phone)) {
+            System.out.println("Invalid input. Please try again.");
+            continue;
+          }
+    
+          System.out.print("Enter gender: ");
+          gender = scan.nextLine();
+          if (!Validations.validateField("gender", gender)) {
+            System.out.println("Invalid input. Please try again.");
+            continue;
+          }
+          if(gender.trim().equalsIgnoreCase("m")){
+            genderEnum = Gender.MALE;
+          }else if(gender.trim().equalsIgnoreCase("f")){
+            genderEnum = Gender.FEMALE;
+          }
+    
+          System.out.print("Enter email: ");
+          email = scan.nextLine();
+          if (!Validations.validateField("email", email)) {
+            System.out.println("Invalid input. Please try again.");
+            continue;
+          }
+    
+          // Generate the customer code in the following format
+          customerCode = Customer.generateCustomerCode();
+    
+          if (!name.isEmpty() && !address.isEmpty() && !phone.isEmpty() && !gender.isEmpty() && !email.isEmpty()) {
+            return new Customer(customerCode, name, address, phone, genderEnum, email);
+          }
+        }
+      }
 
     public static void main(String[] args) {
         App app = new App();
