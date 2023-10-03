@@ -1,4 +1,4 @@
-package src.com.iyke.app.beans;
+package com.iyke.app.beans;
 
 import java.util.UUID;
 

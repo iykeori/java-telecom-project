@@ -1,26 +1,27 @@
-package src.com.iyke.app.beans;
+package com.iyke.app.beans;
 
+import java.util.Random;
 import java.util.UUID;
 
 public class VirtualSim{
-    private int simNumber;
+    private String simNumber;
     private UUID simId;
     private int simActiveState;
     private static int code = 0;
 
     //constructor
-    public VirtualSim(int simNumber, int simActiveState) {
+    public VirtualSim(String simNumber, int simActiveState) {
         this.simNumber = simNumber;
         this.simActiveState = simActiveState;
         this.simId = UUID.randomUUID();
     }
     
     //getters and setters
-    public int getSimNumber() {
+    public String getSimNumber() {
         return simNumber;
     }
 
-    public void setSimNumber(int simNumber) {
+    public void setSimNumber(String simNumber) {
         this.simNumber = simNumber;
     }
 
@@ -58,7 +59,7 @@ public class VirtualSim{
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + simNumber;
+        result = prime * result + ((simNumber == null) ? 0 : simNumber.hashCode());
         result = prime * result + ((simId == null) ? 0 : simId.hashCode());
         result = prime * result + simActiveState;
         return result;
@@ -73,7 +74,10 @@ public class VirtualSim{
         if (getClass() != obj.getClass())
             return false;
         VirtualSim other = (VirtualSim) obj;
-        if (simNumber != other.simNumber)
+        if (simNumber == null) {
+            if (other.simNumber != null)
+                return false;
+        } else if (!simNumber.equals(other.simNumber))
             return false;
         if (simId == null) {
             if (other.simId != null)
@@ -85,12 +89,8 @@ public class VirtualSim{
         return true;
     }
 
-    
 
-   
 
-    
-    
 
    
 }

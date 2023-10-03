@@ -1,6 +1,8 @@
-package src.com.iyke.app.beans;
+package com.iyke.app.beans;
 
 import java.util.UUID;
+
+import com.iyke.app.util.Gender;
 
 public class Customer {
     private UUID id;
@@ -8,17 +10,17 @@ public class Customer {
     private String name;
     private String address;
     private String phone;
-    private String gender;
+    private Gender gender;
     private String email;
     private static int code = 1;
 
     //constructor
-    public Customer(String customerCode, String name, String address, String phone, String gender, String email) {
+    public Customer(String customerCode, String name, String address, String phone, Gender female, String email) {
         this.customerCode = customerCode;
         this.name = name;
         this.address = address;
         this.phone = phone;
-        this.gender = gender;
+        this.gender = female;
         this.email = email; 
         this.id = UUID.randomUUID();
     }
