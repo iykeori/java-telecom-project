@@ -44,9 +44,9 @@ public class VirtualSim{
          // Generate a 6-digit random number
         int min = 100000;
         int max = 999999; 
-
+        
         int randomNumber = random.nextInt(max - min + 1) + min;
-
+        System.out.println("***Random number Generated***");
         return "0803" + randomNumber + code++;
     }
 
