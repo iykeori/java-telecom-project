@@ -8,6 +8,8 @@ public class VirtualSim{
     private UUID simId;
     private int simActiveState;
     private static int code = 0;
+    private double accountBal;
+    private double dataBal;
 
     //constructor
     public VirtualSim(String simNumber, int simActiveState) {
@@ -48,6 +50,22 @@ public class VirtualSim{
         int randomNumber = random.nextInt(max - min + 1) + min;
         System.out.println("***Random number Generated***");
         return "0803" + randomNumber + code++;
+    }
+
+    public void setAcccountBal(double accountBal) {
+      this.accountBal = accountBal;
+    }
+
+    public double getAccountBal() {
+      return this.accountBal;
+    }
+
+    public void setDataBal(double dataBal) {
+      this.dataBal = dataBal;
+    }
+
+    public double getDataBal() {
+      return this.dataBal;
     }
 
     @Override
