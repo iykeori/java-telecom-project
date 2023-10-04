@@ -83,8 +83,7 @@ public class App {
                 }
 
             } catch (Exception e) {
-                System.out.println("Exception: " + e.getMessage());
-                
+                System.out.println("Exception: " + e.getMessage());   
                 continue;
             }
         }
@@ -101,7 +100,7 @@ public class App {
     }
 
     private int displayInactiveSimNumbers(){
-        System.out.println("Choose from the Available Sim");
+        System.out.println("\nChoose from the Available Sim");
         System.out.println("\nPlease select your preferred number OR Press 0 to go back to Main Options:");
 
         int count = 0;
