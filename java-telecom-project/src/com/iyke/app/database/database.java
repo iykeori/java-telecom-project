@@ -7,7 +7,7 @@ import com.iyke.app.beans.CustomerSim;
 import com.iyke.app.beans.VirtualSim;
 import com.iyke.app.util.Gender;
 
-public class Database{
+public class Database {
 
     private Customer[] customers = new Customer[10];
     private VirtualSim[] sim = new VirtualSim[10];
