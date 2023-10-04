@@ -34,6 +34,7 @@ public class App {
                     //boolean isValid = true;
                     if(isValid){
                         CustomerSim customerAndSim = db.validateSimNumber(simNumber);
+                        System.out.println("Did you fetch? " + customerAndSim);
                         if (customerAndSim != null){
                             System.out.println("Welcome: "+ customerAndSim.getCustomer().getName());
                         }else{

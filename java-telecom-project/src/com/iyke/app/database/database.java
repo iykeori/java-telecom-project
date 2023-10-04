@@ -42,12 +42,18 @@ public class Database{
 
   //validate sim number
   public CustomerSim validateSimNumber(String simNumber){
+    System.out.println("Validating sim number " + simNumber + " ...");
     for(CustomerSim cSim : getCustomerSims()){
-      boolean isMatch = cSim.getSim().getSimNumber().trim().equals(simNumber.trim());
-      boolean isActive = cSim.getSim().getSimActiveState() == 1;
-
-      if( isMatch && isActive ){
-        return cSim;
+      if (cSim != null) {
+        boolean isMatch = cSim.getSim().getSimNumber().trim().equals(simNumber.trim());
+        boolean isActive = cSim.getSim().getSimActiveState() == 1;
+        
+        if( isMatch && isActive ){
+          System.out.println("Fetched number: " + cSim.getSim().getSimNumber());
+          return cSim;
+        } else {
+          System.out.println("IsMatch: " + isMatch + " isActive: " + isActive);
+        }
       }
     }
     return null;
