@@ -12,6 +12,7 @@ import com.iyke.app.util.Validations;
 
 public class App {
     private Database db;
+    private AirtimeVoucher av;
     private int simStoreUserIndex = 0;
     private String[][] simCards;
 
@@ -19,6 +20,7 @@ public class App {
     public App() {
         db = new Database();// initialize the database object
         simCards = new String[db.getVirtualSims().length][2];
+        av = new AirtimeVoucher();
         
     }
 
@@ -140,11 +142,11 @@ public class App {
         if(code.equals(buyAirtime)){
             System.out.println("here-option-1");
 
-            AirtimeVoucher.displayAirtimeVouchersCat();
-            AirtimeVoucher.rechargeSim(customerSim);
+            av.displayAirtimeVouchersCat();
+            av.rechargeSim(customerSim);
             
         }else if(code.equals(checkAirtimeBal)){
-            AirtimeVoucher.checkAirtime(customerSim);
+            av.checkAirtime(customerSim);
         }else if(code.equals(buyData)){
 
         }else if(code.equals(checkDataBal)){

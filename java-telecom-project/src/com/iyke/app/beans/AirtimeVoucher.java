@@ -15,7 +15,7 @@ public class AirtimeVoucher{
     private CustomerSim simAirtime;
 
 
-    public static void displayAirtimeVouchersCat(){
+    public void displayAirtimeVouchersCat(){
         System.out.println("\nSN\t\t VALUE \t\t\t\t PRICE");
         System.out.println("1\t\t\t"+getPriceCategory()[0]+"\t\t\t" + getPrice()[0]);
         System.out.println("2\t\t\t"+getPriceCategory()[1]+"\t\t\t" + getPrice()[1]);
@@ -25,7 +25,7 @@ public class AirtimeVoucher{
     }
 
     //Buy Airtime method
-    public static void rechargeSim(CustomerSim customerSim){
+    public void rechargeSim(CustomerSim customerSim){
         Scanner scan = new Scanner(System.in);
         int choice;
         System.out.println("\n Select an Airtime to Purchase OR Press 0 to restart");
@@ -59,19 +59,22 @@ public class AirtimeVoucher{
         }
         
     }
-
-    public static void checkAirtime(CustomerSim customerSim){
+    //Check Airtime
+    public void checkAirtime(CustomerSim customerSim){
          for(CustomerSim c : Database.getCustomerSims()){
              if(c != null){
                  if(c.equals(customerSim)){
                     System.out.println("\n Dear "+customerSim.getCustomer().getName()+" your airtime Balance is: "+ customerSim.getSim().getAccountBal());
                  }
              }
-         }
-        
+         }        
     }
+    
+    //Default Constructor
+    public AirtimeVoucher(){
 
-    //constructor
+    }
+    //Constructor
     public AirtimeVoucher(double airtimePrice, int airtimeCategory, int airtimeVoucherStatus, CustomerSim simAirtime) {
         this.airtimeVoucherId = UUID.randomUUID();
         this.airtimeVoucherStatus = airtimeVoucherStatus;
