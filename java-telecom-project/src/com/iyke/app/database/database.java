@@ -11,7 +11,7 @@ public class Database {
 
     private Customer[] customers = new Customer[10];
     private VirtualSim[] sim = new VirtualSim[10];
-    private CustomerSim[] customerAndSim = new CustomerSim[10];
+    private static CustomerSim[] customerAndSim = new CustomerSim[10];
     private static int trackCustomerIndex = 2;
     private static int trackCustomerSimIndex = 2;
 
@@ -59,23 +59,21 @@ public class Database {
   }
 
   //validate sim number
-  public CustomerSim validateSimNumber(String simNumber){
-    System.out.println("Validating sim number " + simNumber + " ...");
-    for(CustomerSim cSim : getCustomerSims()){
-      if (cSim != null) {
-        boolean isMatch = cSim.getSim().getSimNumber().trim().equals(simNumber.trim());
-        boolean isActive = cSim.getSim().getSimActiveState() == 1;
+  // public CustomerSim validateSimNumber(String simNumber){
+  //   System.out.println("Validating sim number " + simNumber + " ...");
+  //   for(CustomerSim cSim : getCustomerSims()){
+  //     if (cSim != null) {
+  //       boolean isMatch = cSim.getSim().getSimNumber().trim().equals(simNumber.trim());
+  //       boolean isActive = cSim.getSim().getSimActiveState() == 1;
         
-        if( isMatch && isActive ){
-          System.out.println("Fetched number: " + cSim.getSim().getSimNumber());
-          return cSim;
-        } else {
-          System.out.println("IsMatch: " + isMatch + " isActive: " + isActive);
-        }
-      }
-    }
-    return null;
-  } 
+  //       if( isMatch && isActive ){
+  //         System.out.println("Fetched number: " + cSim.getSim().getSimNumber());
+  //         return cSim;
+  //       } 
+  //     }
+  //   }
+  //   return null;
+  // } 
 
   //fetch customer using customer code
   public Customer fetchCustomer(String customerCode) {
@@ -86,6 +84,21 @@ public class Database {
       if (cst != null) {
         if (cst.getCustomerCode().toUpperCase().trim().equals(customerCode.toUpperCase().trim())) {
           return cst;
+        }
+      }
+    }
+    return null;
+  }
+
+  //fetch customerSim using customer
+  public CustomerSim fetchCustomerSim(Customer customer){
+    if(customer == null){
+      return null;
+    }
+    for (CustomerSim cs : getCustomerSims()){
+      if (cs != null){
+        if ( cs.getCustomer().getId().equals(customer.getId())){
+          return cs;
         }
       }
     }
@@ -141,7 +154,7 @@ public class Database {
   }
 
   //get Customers and Sim
-  public CustomerSim[] getCustomerSims(){
+  public static CustomerSim[] getCustomerSims(){
     return customerAndSim;
   }
 

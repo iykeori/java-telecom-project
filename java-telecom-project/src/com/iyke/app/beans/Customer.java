@@ -25,6 +25,15 @@ public class Customer {
         this.id = UUID.randomUUID();
     }
 
+    public Customer(String customerCode, String name, String address,  Gender female, String email) {
+        this.customerCode = customerCode;
+        this.name = name;
+        this.address = address;
+        this.gender = female;
+        this.email = email; 
+        this.id = UUID.randomUUID();
+    }
+
     //getters and setters
 
     public UUID getId() {

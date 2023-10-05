@@ -2,6 +2,7 @@ package com.iyke.app;
 
 import java.util.Scanner;
 
+import com.iyke.app.beans.AirtimeVoucher;
 import com.iyke.app.beans.Customer;
 import com.iyke.app.beans.CustomerSim;
 import com.iyke.app.beans.VirtualSim;
@@ -28,7 +29,7 @@ public class App {
         while(true){
             try{
                 //prompt user for virtual Number
-                System.out.println("Enter your Virtual Sim Number: ");
+                System.out.println("\nEnter your Virtual Sim Number: ");
 
                 if (scan.hasNext()){
                     simNumber = scan.nextLine();
@@ -38,15 +39,17 @@ public class App {
                     boolean isValid = Validations.validateSimNumberEntry(simNumber);
                     //boolean isValid = true;
                     if(isValid){
-                        CustomerSim customerAndSim = db.validateSimNumber(simNumber);
-                        System.out.println("Did you fetch? " + customerAndSim);
+                        CustomerSim customerAndSim = Validations.validateSimNumber(simNumber);
+                        //System.out.println("Did you fetch? " + customerAndSim);
                     
                         if (customerAndSim != null){
                             System.out.println("Welcome: "+ customerAndSim.getCustomer().getName());
                             //show services
                             displayServices();
+                            processServices(customerAndSim.getCustomer()); 
                         }else if (customerAndSim == null){
                             System.out.println("\n Customer not Found!");
+                            System.out.println("Enter your Customer Code: ");
                             String customerCode = scan.nextLine();
                             Customer customer = db.fetchCustomer(customerCode);
                             CustomerSim simDetails = db.fetchVirtualSimDetails(customer);
@@ -61,15 +64,18 @@ public class App {
                                 }else{
                                     // if customer does not have a virtual number, let him purchase VN
                                     getASim(customer);
-
                                     //show services
                                     displayServices();
+                                    processServices(customer);     
                                 }
                             }else{
-                                // if customer does not exit, register customer
+                                // if customer does not exit, register customer and get customer a sim
                                 customer = registerCustomer();
                                 db.saveCustomer(customer);
-                                System.out.println("\nYour registration was successful ");
+                                getASim(customer);
+                                System.out.println("\nYour registration was successful");
+                                displayServices();
+                                processServices(customer);                
                             }
                         }
                     } else {
@@ -91,13 +97,68 @@ public class App {
     
     }
 
+    private void processServices(Customer customer){
+        String uCode = enterUssdCode();
+        if (uCode!= null){
+            if(db.fetchCustomerSim(customer) != null){
+                processUssdCode(enterUssdCode(), db.fetchCustomerSim(customer));
+            }else{
+                System.out.println("Customer not registered");
+            }
+            
+        }else{
+            System.out.println("Your request cannot be processed at this time. Try again later");
+        }
+    }
+
+    private String enterUssdCode(){
+        try{
+            Scanner scan = new Scanner(System.in);
+            String ussdCode;
+            System.out.println("\n Enter the USSD code for the service you want");
+            if(scan.hasNext()){
+                ussdCode = scan.next();
+                System.out.println("ussd code assigned");
+                return ussdCode.trim();
+           }else{
+                System.out.println("Invalid USSD Code");
+            }
+        }catch (Exception e) {
+            System.out.println("Exception: " + e.getMessage());   
+                
+        }
+        
+        return null;
+    }
+
+    private void processUssdCode(String code, CustomerSim customerSim){
+        String buyAirtime = "*310#".trim();
+        String checkAirtimeBal = "*310*1#".trim();
+        String buyData = "*320#".trim();
+        String checkDataBal="*320*1#".trim();
+        code = code.trim();
+        if(code.equals(buyAirtime)){
+            System.out.println("here-option-1");
+
+            AirtimeVoucher.displayAirtimeVouchersCat();
+            AirtimeVoucher.rechargeSim(customerSim);
+            
+        }else if(code.equals(checkAirtimeBal)){
+            AirtimeVoucher.checkAirtime(customerSim);
+        }else if(code.equals(buyData)){
+
+        }else if(code.equals(checkDataBal)){
+
+        }   
+    }
+
     private void displayServices(){
-        System.out.println("SN\t\t SERVICE \t\t\t\t CODE");
-        System.out.println("1\t\t Acquire a virtual SIM \t\t\t\t *700#");
-        System.out.println("2\t\t Buy airtime voucher \t\t\t\t *310#");
-        System.out.println("3\t\t Check data balance \t\t\t\t *310*1#");
-        System.out.println("4\t\t Buy data bundle \t\t\t\t *320#");
-        System.out.println("5\t\t Check data balance \t\t\t\t *320*1#");
+        System.out.println("\nSN\t\t SERVICE \t\t\t\t CODE");
+        //System.out.println("1\t\t Acquire a virtual SIM \t\t\t\t *700#");
+        System.out.println("1\t\t Buy airtime voucher \t\t\t\t *310#");
+        System.out.println("2\t\t Check data balance \t\t\t\t *310*1#");
+        System.out.println("3\t\t Buy data bundle \t\t\t\t *320#");
+        System.out.println("4\t\t Check data balance \t\t\t\t *320*1#");
     }
 
     private int displayInactiveSimNumbers(){
@@ -123,14 +184,15 @@ public class App {
         simStoreUserIndex++;
     }
 
-    private void getASim(Customer customer){
+    private VirtualSim getASim(Customer customer){
         Scanner scan = new Scanner(System.in);
         while(true){
             int simCount = displayInactiveSimNumbers();
             if(simCount == 0){
                 System.out.println("\n***No Virtual Sim is Available. Press 0 to go to Main Options***\n");
             }
-            System.out.print("Enter option: ");
+
+            System.out.print("\nEnter option: ");
             int select;
 
             if (scan.hasNextInt()){
@@ -144,19 +206,21 @@ public class App {
                     String[] detail = simCards[--select];
                     VirtualSim sim = db.fetchSimById(detail[1]);
 
-                    //create an instance of a customerSim to save
-                    //CustomerSim cs = new CustomerSim(customer, sim);
                     //save to CustomerSim DB
-                   CustomerSim cs = db.saveCustomerSim(new CustomerSim(customer, sim));
+                    CustomerSim cs = db.saveCustomerSim(new CustomerSim(customer, sim));
+              
+                    if (cs != null){
+                        //change virtual sim active status to 1
+                        cs.getSim().setSimActiveState(1);
+                        String customerPhoneno = cs.getSim().getSimNumber();
+                        customer.setPhone(customerPhoneno);
+                        System.out.println("\nCongratulations! Your Virtual Number is "+ cs.getSim().getSimNumber());
+                    }else {
+                        System.out.println("\nSorry! You can't get this number now");
+                        continue;
+                    }
 
-                   if (cs != null){
-                    //change virtual sim active status to 1
-                    cs.getSim().setSimActiveState(1);
-                    System.out.println("Congratulations! Your Virtual Number is "+ cs.getSim().getSimNumber());
-                   }else {
-                    System.out.println("Sorry! You can't get this number now");
-                    continue;
-                  }
+                    return sim;
                 }
             }else {
                 System.out.println("Invalid input. Please select a number!");
@@ -164,11 +228,12 @@ public class App {
                 continue;
             }
         }
+        return null;
     }
 
     private Customer registerCustomer() {
         Scanner scan = new Scanner(System.in);
-        String customerCode, name, address, phone, gender, email;
+        String customerCode, name, address, gender, email;
         Gender genderEnum = null;
     
         while (true) {
@@ -185,13 +250,6 @@ public class App {
           System.out.print("Enter address: ");
           address = scan.nextLine();
           if (!Validations.validateField("address", address)) {
-            System.out.println("Invalid input. Please try again.");
-            continue;
-          }
-    
-          System.out.print("Enter phone: ");
-          phone = scan.nextLine();
-          if (!Validations.validateField("phone", phone)) {
             System.out.println("Invalid input. Please try again.");
             continue;
           }
@@ -214,12 +272,11 @@ public class App {
             System.out.println("Invalid input. Please try again.");
             continue;
           }
-    
           // Generate the customer code in the following format
           customerCode = Customer.generateCustomerCode();
     
-          if (!name.isEmpty() && !address.isEmpty() && !phone.isEmpty() && !gender.isEmpty() && !email.isEmpty()) {
-            return new Customer(customerCode, name, address, phone, genderEnum, email);
+          if (!name.isEmpty() && !address.isEmpty() && !gender.isEmpty() && !email.isEmpty()) {
+            return new Customer(customerCode, name, address, genderEnum, email);
           }
         }
       }

@@ -1,14 +1,11 @@
 package com.iyke.app.util;
 
+import com.iyke.app.beans.CustomerSim;
+import com.iyke.app.database.Database;
 
 public class Validations {
    
     public static boolean validateSimNumberEntry(String simNumber){
-        // if(simNumber.length() <= 0 ){
-        //     return false;
-        // }
-        // String phoneNumber = Integer.toString(simNumber);
-
         simNumber = simNumber.trim();
         if(simNumber.isEmpty() || simNumber == null){
             return false;
@@ -20,7 +17,7 @@ public class Validations {
 
         return true;
     }
-
+    //Method to Validate Input Registration Field
     public static boolean validateField(String field, String value) {
         if (value.trim().isEmpty() || value == null) {
           return false;
@@ -28,11 +25,7 @@ public class Validations {
         // trim user input
         value = value.trim();
   
-        if (field.equals("phone")) {
-          if (value.length() < 10 || value.length() > 10) {
-            return false;
-          }
-        } else if (field.equals("gender")) {
+        if (field.equals("gender")) {
           if (value.length() > 1 || (!value.equalsIgnoreCase("M") && !value.equalsIgnoreCase("F"))) {
             return false;
           }
@@ -42,7 +35,6 @@ public class Validations {
           if (emailParts.length == 2) {
             //System.out.println("Splitted!");
             if (emailParts[0].length() == 0 || emailParts[1].length() == 0) {
-              //System.out.println("Bad!");
               // E.g. @gmail.com
               return false;
             }
@@ -57,7 +49,24 @@ public class Validations {
         }
   
         return true;
-      }
+    }
+
+    //validate sim number
+    public static CustomerSim validateSimNumber(String simNumber){
+        System.out.println("Validating sim number " + simNumber + " ...");
+        for(CustomerSim cSim : Database.getCustomerSims() ){
+            if (cSim != null) {
+                boolean isMatch = cSim.getSim().getSimNumber().trim().equals(simNumber.trim());
+                boolean isActive = cSim.getSim().getSimActiveState() == 1;
+                
+                if( isMatch && isActive ){
+                System.out.println("Fetched number: " + cSim.getSim().getSimNumber());
+                return cSim;
+                } 
+            }
+        }
+        return null;
+    }
 
     
     
