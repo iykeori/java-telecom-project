@@ -22,33 +22,37 @@ public class AirtimeVoucherService {
     int choice;
     System.out.println("\n Select an Airtime to Purchase OR Press 0 to restart");
     double accountBal = customerSim.getSim().getAccountBal();
+    double beforeAccountBal = accountBal;
     System.out.println("\nEnter your Airtim Selection: ");
     if (scan.hasNextInt()) {
       choice = scan.nextInt();
       if (choice >= 1 && choice <= 5) {
-        if (choice == AirtimeVoucher.getPriceCategories()[0]) {
+        if (choice == 1) {
           accountBal = accountBal + AirtimeVoucher.getPrices()[0];
           customerSim.getSim().setAcccountBal(accountBal);
-        } else if (choice == AirtimeVoucher.getPriceCategories()[1]) {
+        } else if (choice == 2) {
           accountBal = accountBal + AirtimeVoucher.getPrices()[1];
           customerSim.getSim().setAcccountBal(accountBal);
-        } else if (choice == AirtimeVoucher.getPriceCategories()[2]) {
+        } else if (choice == 3) {
           accountBal = accountBal + AirtimeVoucher.getPrices()[2];
           customerSim.getSim().setAcccountBal(accountBal);
-        } else if (choice == AirtimeVoucher.getPriceCategories()[3]) {
+        } else if (choice == 4) {
           accountBal = accountBal + AirtimeVoucher.getPrices()[3];
           customerSim.getSim().setAcccountBal(accountBal);
-        } else if (choice == AirtimeVoucher.getPriceCategories()[4]) {
+        } else if (choice == 5) {
           accountBal = accountBal + AirtimeVoucher.getPrices()[4];
           customerSim.getSim().setAcccountBal(accountBal);
         }
-        System.out.println("You recharge was successful!");
+        
       } else {
         System.out.println("Invalid Selection");
       }
     } else {
       System.out.println("Invalid Selection");
       scan.nextLine();// accept the input
+    }
+    if(beforeAccountBal < accountBal){
+      System.out.println("You recharge was successful!");
     }
 
   }

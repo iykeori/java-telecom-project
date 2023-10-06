@@ -5,24 +5,20 @@ import java.util.UUID;
 public class AirtimeVoucher {
     private static double[] prices = {110, 210, 420, 520, 1550};
     private static int[] priceCategories = {100, 200, 400, 500, 1500};
-    private double airtimePrice;
-    private int airtimeCategory;
     private UUID airtimeVoucherId;
     private int airtimeVoucherStatus = 0;
     private CustomerSim simAirtime;
     
     //Default Constructor
     public AirtimeVoucher(){
-      this(0, 0, 0, null);
+      this(0, null);
     }
     
     //Constructor
-    public AirtimeVoucher(double airtimePrice, int airtimeCategory, int airtimeVoucherStatus, CustomerSim simAirtime) {
+    public AirtimeVoucher(int airtimeVoucherStatus, CustomerSim simAirtime) {
         this.airtimeVoucherId = UUID.randomUUID();
         this.airtimeVoucherStatus = airtimeVoucherStatus;
         this.simAirtime = simAirtime;
-        this.airtimePrice = airtimePrice;
-        this.airtimeCategory = airtimeCategory;
     }
 
     //Getter and Setters
