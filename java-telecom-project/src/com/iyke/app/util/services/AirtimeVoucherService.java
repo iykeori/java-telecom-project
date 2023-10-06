@@ -23,7 +23,7 @@ public class AirtimeVoucherService {
     System.out.println("\n Select an Airtime to Purchase OR Press 0 to restart");
     double accountBal = customerSim.getSim().getAccountBal();
     double beforeAccountBal = accountBal;
-    System.out.println("\nEnter your Airtim Selection: ");
+    System.out.println("\nEnter your Airtime Selection: ");
     if (scan.hasNextInt()) {
       choice = scan.nextInt();
       if (choice >= 1 && choice <= 5) {

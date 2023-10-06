@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class InternetData {
     private static double[] prices = {250, 500, 1000, 3000, 5000};
-    private static String[] dataCategories = {"25MB", "50MB", "300MB", "1GB", "4GB"};
+    private static int[] dataCategories = {25, 50, 300, 500, 900};
     private UUID internetDataId;
     private int internetDataStatus = 0;
     private CustomerSim simDataBundle;
@@ -25,11 +25,11 @@ public class InternetData {
         InternetData.prices = prices;
     }
 
-    public static String[] getDataCategories() {
+    public static int[] getDataCategories() {
         return dataCategories;
     }
 
-    public static void setDataCategories(String[] dataCategories) {
+    public static void setDataCategories(int[] dataCategories) {
         InternetData.dataCategories = dataCategories;
     }
 

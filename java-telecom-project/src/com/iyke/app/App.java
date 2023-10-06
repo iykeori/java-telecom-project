@@ -166,12 +166,12 @@ public class App {
     }
 
     private void displayServices() {
-        System.out.println("\nSN\t\t SERVICE \t\t\t\t CODE");
+        System.out.println("SERVICE \t\t\t\t CODE");
         // System.out.println("1\t\t Acquire a virtual SIM \t\t\t\t *700#");
-        System.out.println("1\t\t Buy airtime voucher \t\t\t\t *310#");
-        System.out.println("2\t\t Check data balance \t\t\t\t *310*1#");
-        System.out.println("3\t\t Buy data bundle \t\t\t\t *320#");
-        System.out.println("4\t\t Check data balance \t\t\t\t *320*1#");
+        System.out.println("Buy airtime voucher \t\t\t\t *310#");
+        System.out.println("Check Airtime balance \t\t\t\t *310*1#");
+        System.out.println("Buy data bundle \t\t\t\t *320#");
+        System.out.println("Check data balance \t\t\t\t *320*1#");
     }
 
     private int displayInactiveSimNumbers() {

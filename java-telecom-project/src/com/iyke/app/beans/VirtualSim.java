@@ -10,6 +10,7 @@ public class VirtualSim{
     private static int code = 0;
     private double accountBal;
     private double dataBal;
+    private double dataValue;
 
     //constructor
     public VirtualSim(String simNumber, int simActiveState) {
@@ -66,6 +67,15 @@ public class VirtualSim{
     public double getDataBal() {
       return this.dataBal;
     }
+
+    public void setDataValue(double dataValue) {
+      this.dataValue = dataValue;
+    }
+
+    public double getDataValue() {
+      return this.dataValue;
+    }
+
 
     @Override
     public String toString() {
