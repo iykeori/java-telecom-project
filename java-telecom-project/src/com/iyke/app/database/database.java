@@ -12,21 +12,21 @@ public class Database {
     private Customer[] customers = new Customer[10];
     private VirtualSim[] sim = new VirtualSim[10];
     private static CustomerSim[] customerAndSim = new CustomerSim[10];
-    private static int trackCustomerIndex = 2;
-    private static int trackCustomerSimIndex = 2;
+    private static int trackCustomerIndex = 0;
+    private static int trackCustomerSimIndex = 0;
 
     public Database(){
-        populateCustomers();
+       // populateCustomers();
         populateVirtualSim();
-        populateSimAndCustomers();
+       // populateSimAndCustomers();
     }
 
     /**
    * Populate customer array
    */
   public void populateCustomers() {
-    customers[0] = new Customer("DL001", "dana", "moxham drive", "08032704143", Gender.FEMALE, "dana@gmail.com");
-    customers[1] = new Customer("DL002", "chris", "ocean street", "09033367781", Gender.MALE, "chris@gmail.com");   
+   // customers[0] = new Customer("DL001", "dana", "moxham drive", "08032704143", Gender.FEMALE, "dana@gmail.com");
+   // customers[1] = new Customer("DL002", "chris", "ocean street", "09033367781", Gender.MALE, "chris@gmail.com");   
   }
 
   public void populateVirtualSim(){
@@ -37,14 +37,14 @@ public class Database {
 
     // for test sake
    //sim[0].setSimActiveState(1);
-   sim[0] = new VirtualSim("08032704143", 1);
-   sim[1] = new VirtualSim("09033367781", 0);
+   //sim[0] = new VirtualSim("08032704143", 1);
+   //sim[1] = new VirtualSim("09033367781", 0);
   }
 
   
   public void populateSimAndCustomers(){
-    customerAndSim[0]= new CustomerSim(customers[0], sim [0]);
-    customerAndSim[1]= new CustomerSim(customers[1], sim [1]);
+    //customerAndSim[0]= new CustomerSim(customers[0], sim [0]);
+    //customerAndSim[1]= new CustomerSim(customers[1], sim [1]);
   }
 
   //Save new Customer to DB

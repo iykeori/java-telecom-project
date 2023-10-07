@@ -125,21 +125,24 @@ public class App {
     }
     //enter ussd
     private String enterUssdCode() {
-        try {
-            Scanner scan = new Scanner(System.in);
-            String ussdCode = "";
+        Scanner scan = new Scanner(System.in);
+        String ussdCode = "";   
+        while(true){
             System.out.println("\n Enter the USSD code for the service you want");
-            if (scan.hasNext()) {
-                ussdCode = scan.next();
-                //System.out.println("ussd code assigned");
-                return ussdCode.trim();
-            } else {
-                System.out.println("Invalid USSD Code");
+            try {                
+                if (scan.hasNext()) {
+                    ussdCode = scan.next();
+                    //System.out.println("ussd code assigned");
+                    return ussdCode.trim();
+                } else {
+                    System.out.println("Invalid USSD Code");
+                    continue;
+                }
+            } catch (Exception e) {
+                System.out.println("Exception: " + e.getMessage());
             }
-        } catch (Exception e) {
-            System.out.println("Exception: " + e.getMessage());
-        }
-        return null;
+            return null;
+        }       
     }
 
     private void processUssdCode(String code, CustomerSim customerSim) {
@@ -183,10 +186,10 @@ public class App {
         simCards = new String[inactiveSim.length][2];
 
         for (int i = 0; i < inactiveSim.length; i++) {
-        if (inactiveSim[i] != null && inactiveSim[i].getSimActiveState() == 0) {
-            storeUserSimChoice(i, inactiveSim[i]);
-            System.out.println(++count + " - " + inactiveSim[i].getSimNumber());
-        }
+            if (inactiveSim[i] != null && inactiveSim[i].getSimActiveState() == 0) {
+                storeUserSimChoice(i, inactiveSim[i]);
+                System.out.println(++count + " - " + inactiveSim[i].getSimNumber());
+            }
         }
         return count;
     }
