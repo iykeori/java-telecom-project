@@ -44,6 +44,15 @@ public class InternetDataService {
                         dataValue = dataValue + InternetData.getDataCategories()[0];
                         //set new data value
                         customerSim.getSim().setDataValue(dataValue);
+
+                        //TODO:
+                        // boolean isSimDataBought = operationName(/* arguments */);
+                        // if (isSimDataBought) {
+                        //   //successfully bought data
+                        // } else {
+                        //   //something went wrong somewhere
+                        //   continue;
+                        // }
                     } else if (choice == 2 && airtimeBal > InternetData.getPrices()[1]) {
                         //subtracting the data price from airtime
                         airtimeBal = airtimeBal - InternetData.getPrices()[1];
@@ -93,6 +102,14 @@ public class InternetDataService {
                 scan.nextLine();// accept the input
             }            
         }      
+    }
+
+    //Write a clean and not repeat yourself
+    public boolean operationName(/*define params here...*/) {
+      //carry out the implementation here and invoke method where necessary to get the code working...
+      //if we could save the data successfully, return true else (fro any reasons) return false.
+      //TODO: do the implementation here.
+      return false;
     }
 
     // Check Airtime

@@ -123,6 +123,7 @@ public class App {
             System.out.println("Your request cannot be processed at this time. Try again later");
         }
     }
+
     //enter ussd
     private String enterUssdCode() {
         Scanner scan = new Scanner(System.in);
@@ -222,15 +223,15 @@ public class App {
                 } else {
                     // Get Sim ready for Booking
                     String[] detail = simCards[--select];
-                    VirtualSim sim = db.fetchSimById(detail[1]);
+                    VirtualSim sim = db.fetchSimById(detail[1]);//Fetches the virtual sim
 
                     // save to CustomerSim DB
                     CustomerSim cs = db.saveCustomerSim(new CustomerSim(customer, sim));
 
                     if (cs != null) {
                         // change virtual sim active status to 1
-                        cs.getSim().setSimActiveState(1);
-                        String customerPhoneno = cs.getSim().getSimNumber();
+                        sim.setSimActiveState(1);
+                        String customerPhoneno = sim.getSimNumber();
                         customer.setPhone(customerPhoneno);
                         System.out.println("\nCongratulations! Your Virtual Number is " + cs.getSim().getSimNumber());
                     } else {
