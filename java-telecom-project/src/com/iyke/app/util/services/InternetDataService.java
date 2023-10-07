@@ -36,14 +36,22 @@ public class InternetDataService {
                         System.out.println("Switching to main terminal");
                         break;
                     }else if (choice == 1 && airtimeBal > InternetData.getPrices()[0]) {   
+                        //subtracting the data price from airtime
                         airtimeBal = airtimeBal - InternetData.getPrices()[0];
+                        //set new airtime balance
                         customerSim.getSim().setAcccountBal(airtimeBal);
+                        //add to add value
                         dataValue = dataValue + InternetData.getDataCategories()[0];
+                        //set new data value
                         customerSim.getSim().setDataValue(dataValue);
                     } else if (choice == 2 && airtimeBal > InternetData.getPrices()[1]) {
+                        //subtracting the data price from airtime
                         airtimeBal = airtimeBal - InternetData.getPrices()[1];
+                        //set new airtime balance
                         customerSim.getSim().setAcccountBal(airtimeBal);
+                        //add to add value
                         dataValue = dataValue + InternetData.getDataCategories()[1];
+                        //set new data value
                         customerSim.getSim().setDataValue(dataValue);
                     } else if (choice == 3 && airtimeBal > InternetData.getPrices()[2]) {
                         airtimeBal = airtimeBal - InternetData.getPrices()[2];
@@ -51,14 +59,22 @@ public class InternetDataService {
                         dataValue = dataValue + InternetData.getDataCategories()[2];
                         customerSim.getSim().setDataValue(dataValue);
                     } else if (choice == 4 && airtimeBal > InternetData.getPrices()[3]) {
+                        //subtracting the data price from airtime
                         airtimeBal = airtimeBal - InternetData.getPrices()[3];
+                        //set new airtime balance
                         customerSim.getSim().setAcccountBal(airtimeBal);
+                        //add to add value
                         dataValue = dataValue + InternetData.getDataCategories()[3];
+                        //set new data value
                         customerSim.getSim().setDataValue(dataValue);
                     } else if (choice == 5 && airtimeBal > InternetData.getPrices()[4]) {
+                        //subtracting the data price from airtime
                         airtimeBal = airtimeBal - InternetData.getPrices()[4];
+                        //set new airtime balance
                         customerSim.getSim().setAcccountBal(airtimeBal);
+                        //add to add value
                         dataValue = dataValue + InternetData.getDataCategories()[4];
+                        //set new data value
                         customerSim.getSim().setDataValue(dataValue);
                     }else{
                         System.out.println("Insufficient Amount Please Recharge your account");
@@ -74,8 +90,7 @@ public class InternetDataService {
             } else {
                 System.out.println("Invalid Selection");
                 scan.nextLine();// accept the input
-            }
-            
+            }            
         }      
     }
 
@@ -87,6 +102,7 @@ public class InternetDataService {
             if (c != null) {
                 if (c.equals(customerSim)) {
                     dataVal = customerSim.getSim().getDataValue();
+                    //converting mb to gb
                     if(dataVal > 1000){
                         newVal = dataVal / 1000;
                         sIunit = "GB";
@@ -94,7 +110,8 @@ public class InternetDataService {
                         newVal = dataVal;
                         sIunit = "MB";
                     }
-                System.out.println("\n Dear " + customerSim.getCustomer().getName() + " Your Data Balance is: "
+                    //show data balance
+                    System.out.println("\n Dear " + customerSim.getCustomer().getName() + " Your Data Balance is: "
                     + newVal+sIunit);
                 }
             }

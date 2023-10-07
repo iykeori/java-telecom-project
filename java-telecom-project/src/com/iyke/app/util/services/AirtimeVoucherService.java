@@ -27,9 +27,7 @@ public class AirtimeVoucherService {
       System.out.println("\nEnter your Airtime Selection OR Press 0 to restart: ");
       if (scan.hasNextInt()) {
         choice = scan.nextInt();
-        // if(choice == 0){
-
-        // }
+        
         if (choice >= 0 && choice <= 5) {
           if (choice == 0){
             System.out.println("Switching to main terminal");

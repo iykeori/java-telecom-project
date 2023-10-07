@@ -169,6 +169,7 @@ public class App {
     }
 
     private void displayServices() {
+        System.out.println("");
         System.out.println("SERVICE \t\t\t\t CODE");
         // System.out.println("1\t\t Acquire a virtual SIM \t\t\t\t *700#");
         System.out.println("Buy airtime voucher \t\t\t\t *310#");
