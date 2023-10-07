@@ -33,21 +33,32 @@ public class AirtimeVoucherService {
             System.out.println("Switching to main terminal");
             break;
           }else if (choice == 1) {
+            //add new airtime to last airtime balance
             accountBal = accountBal + AirtimeVoucher.getPrices()[0];
+            //set new account balance
             customerSim.getSim().setAcccountBal(accountBal);
           } else if (choice == 2) {
+            //add new airtime to last airtime balance
             accountBal = accountBal + AirtimeVoucher.getPrices()[1];
+            //set new account balance
             customerSim.getSim().setAcccountBal(accountBal);
           } else if (choice == 3) {
+            //add new airtime to last airtime balance
             accountBal = accountBal + AirtimeVoucher.getPrices()[2];
+            //set new account balance
             customerSim.getSim().setAcccountBal(accountBal);
           } else if (choice == 4) {
+            //add new airtime to last airtime balance
             accountBal = accountBal + AirtimeVoucher.getPrices()[3];
+            //set new account balance
             customerSim.getSim().setAcccountBal(accountBal);
           } else if (choice == 5) {
+            //add new airtime to last airtime balance
             accountBal = accountBal + AirtimeVoucher.getPrices()[4];
+            //set new account balance
             customerSim.getSim().setAcccountBal(accountBal);
           } 
+          //success message
           if(beforeAccountBal < accountBal){
             System.out.println("Your recharge was successful!");
           }         
