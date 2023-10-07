@@ -30,7 +30,7 @@ public class Database {
   }
 
   public void populateVirtualSim(){
-    for (int i = 2; i < sim.length; i++) {
+    for (int i = 0; i < sim.length; i++) {
       sim[i] = new VirtualSim(VirtualSim.generatePhoneNumber(), 0);
       //System.out.println(sim[i].toString());
     }

@@ -22,7 +22,7 @@ public class InternetDataService {
         Scanner scan = new Scanner(System.in);
         int choice;
         //System.out.println("\n Select a Data to Purchase ");
-        double dataBal = customerSim.getSim().getDataBal();
+        //double dataBal = customerSim.getSim().getDataBal();
         double airtimeBal = customerSim.getSim().getAccountBal();
         double dataValue = customerSim.getSim().getDataValue();
         double beforeDataValueBal = dataValue;
@@ -36,28 +36,28 @@ public class InternetDataService {
                         System.out.println("Switching to main terminal");
                         break;
                     }else if (choice == 1 && airtimeBal > InternetData.getPrices()[0]) {   
-                        dataBal = dataBal - InternetData.getPrices()[0];
-                        customerSim.getSim().setDataBal(dataBal);
+                        airtimeBal = airtimeBal - InternetData.getPrices()[0];
+                        customerSim.getSim().setAcccountBal(airtimeBal);
                         dataValue = dataValue + InternetData.getDataCategories()[0];
                         customerSim.getSim().setDataValue(dataValue);
                     } else if (choice == 2 && airtimeBal > InternetData.getPrices()[1]) {
-                        dataBal = dataBal - InternetData.getPrices()[1];
-                        customerSim.getSim().setDataBal(dataBal);
+                        airtimeBal = airtimeBal - InternetData.getPrices()[1];
+                        customerSim.getSim().setAcccountBal(airtimeBal);
                         dataValue = dataValue + InternetData.getDataCategories()[1];
                         customerSim.getSim().setDataValue(dataValue);
                     } else if (choice == 3 && airtimeBal > InternetData.getPrices()[2]) {
-                        dataBal = dataBal - InternetData.getPrices()[2];
-                        customerSim.getSim().setDataBal(dataBal);
+                        airtimeBal = airtimeBal - InternetData.getPrices()[2];
+                        customerSim.getSim().setAcccountBal(airtimeBal);
                         dataValue = dataValue + InternetData.getDataCategories()[2];
                         customerSim.getSim().setDataValue(dataValue);
                     } else if (choice == 4 && airtimeBal > InternetData.getPrices()[3]) {
-                        dataBal = dataBal - InternetData.getPrices()[3];
-                        customerSim.getSim().setDataBal(dataBal);
+                        airtimeBal = airtimeBal - InternetData.getPrices()[3];
+                        customerSim.getSim().setAcccountBal(airtimeBal);
                         dataValue = dataValue + InternetData.getDataCategories()[3];
                         customerSim.getSim().setDataValue(dataValue);
                     } else if (choice == 5 && airtimeBal > InternetData.getPrices()[4]) {
-                        dataBal = dataBal - InternetData.getPrices()[4];
-                        customerSim.getSim().setDataBal(dataBal);
+                        airtimeBal = airtimeBal - InternetData.getPrices()[4];
+                        customerSim.getSim().setAcccountBal(airtimeBal);
                         dataValue = dataValue + InternetData.getDataCategories()[4];
                         customerSim.getSim().setDataValue(dataValue);
                     }else{

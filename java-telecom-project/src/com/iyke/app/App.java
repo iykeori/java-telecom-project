@@ -59,7 +59,7 @@ public class App {
                                 if (simDetails != null) {
                                     System.out.println("Your Valid Virtual Number is  " + simDetails.getSim().getSimNumber().toString());
                                     // prompt customer to re-enter the correct number
-                                    System.out.println("\nEnter your Virtual Sim Number: ");
+                                    //System.out.println("\nEnter your Virtual Sim Number: ");
                                     continue;
                                 } else {
                                     // if customer does not have a virtual number, let him purchase VN
@@ -184,6 +184,7 @@ public class App {
         int count = 0;
         VirtualSim[] inactiveSim = db.getVirtualSims();
         simCards = new String[inactiveSim.length][2];
+        simStoreUserIndex = 0;
 
         for (int i = 0; i < inactiveSim.length; i++) {
             if (inactiveSim[i] != null && inactiveSim[i].getSimActiveState() == 0) {
