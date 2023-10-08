@@ -123,6 +123,7 @@ public class App {
             System.out.println("Your request cannot be processed at this time. Try again later");
         }
     }
+
     //enter ussd
     private String enterUssdCode() {
         Scanner scan = new Scanner(System.in);
@@ -230,8 +231,8 @@ public class App {
 
                     if (cs != null) {
                         // change virtual sim active status to 1
-                        cs.getSim().setSimActiveState(1);
-                        String customerPhoneno = cs.getSim().getSimNumber();
+                        sim.setSimActiveState(1);
+                        String customerPhoneno = sim.getSimNumber();
                         customer.setPhone(customerPhoneno);
                         System.out.println("\nCongratulations! Your Virtual Number is " + cs.getSim().getSimNumber());
                     } else {

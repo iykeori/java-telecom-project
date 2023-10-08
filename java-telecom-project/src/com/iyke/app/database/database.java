@@ -60,7 +60,7 @@ public class Database {
 
   //fetch customer using customer code
   public Customer fetchCustomer(String customerCode) {
-    if( customerCode.isEmpty() || customerCode.isBlank() || customerCode == null){
+    if( customerCode.isEmpty() || customerCode.isEmpty() || customerCode == null){
       return null;
     }
     for (Customer cst : getCustomers()) {
