@@ -8,114 +8,118 @@ import com.iyke.app.database.Database;
 
 public class InternetDataService {
 
-    public void displayInternetDataService(){
-        System.out.println("\nSN\t\t VALUE \t\t\t\t PRICE");
-        System.out.println("1\t\t\t" + InternetData.getDataCategories()[0] + "\t\t\t" + InternetData.getPrices()[0]);
-        System.out.println("2\t\t\t" + InternetData.getDataCategories()[1] + "\t\t\t" + InternetData.getPrices()[1]);
-        System.out.println("3\t\t\t" + InternetData.getDataCategories()[2] + "\t\t\t" + InternetData.getPrices()[2]);
-        System.out.println("4\t\t\t" + InternetData.getDataCategories()[3] + "\t\t\t" + InternetData.getPrices()[3]);
-        System.out.println("5\t\t\t" + InternetData.getDataCategories()[4] + "\t\t\t" + InternetData.getPrices()[4]);
-    }
+  public void displayInternetDataService() {
+    System.out.println("\nSN\t\t VALUE \t\t\t\t PRICE");
+    System.out.println("1\t\t\t" + InternetData.getDataCategories()[0] + "\t\t\t" + InternetData.getPrices()[0]);
+    System.out.println("2\t\t\t" + InternetData.getDataCategories()[1] + "\t\t\t" + InternetData.getPrices()[1]);
+    System.out.println("3\t\t\t" + InternetData.getDataCategories()[2] + "\t\t\t" + InternetData.getPrices()[2]);
+    System.out.println("4\t\t\t" + InternetData.getDataCategories()[3] + "\t\t\t" + InternetData.getPrices()[3]);
+    System.out.println("5\t\t\t" + InternetData.getDataCategories()[4] + "\t\t\t" + InternetData.getPrices()[4]);
+  }
 
-    // Buy Data method
-    public void buyData(CustomerSim customerSim) {
-        Scanner scan = new Scanner(System.in);
-        int choice;
-        //System.out.println("\n Select a Data to Purchase ");
-        //double dataBal = customerSim.getSim().getDataBal();
-        double airtimeBal = customerSim.getSim().getAccountBal();
-        double dataValue = customerSim.getSim().getDataValue();
-        double beforeDataValueBal = dataValue;
-        boolean isSimDataBought = false;
-        
-        while(true){
-            System.out.println("\nEnter your Data Selection OR Press 0 to restart: ");
-            if (scan.hasNextInt()) {
-                choice = scan.nextInt();
-                if (choice >= 0 && choice <= 5) {
-                    if (choice == 0){
-                        System.out.println("Switching to main terminal");
-                        break;
-                    }else if (choice == 1) {  
+  // Buy Data method
+  public void buyData(CustomerSim customerSim) {
+    Scanner scan = new Scanner(System.in);
+    int choice;
+    // System.out.println("\n Select a Data to Purchase ");
+    // double dataBal = customerSim.getSim().getDataBal();
+    double airtimeBal = customerSim.getSim().getAccountBal();
+    double dataValue = customerSim.getSim().getDataValue();
+    double beforeDataValueBal = dataValue;
+    boolean isSimDataBought = false;
 
-                        isSimDataBought = calculateAirtimeAndData(airtimeBal, dataValue, InternetData.getPrices()[0], InternetData.getDataCategories()[0], customerSim);
-                    
-                    } else if (choice == 2) {
+    while (true) {
+      System.out.println("\nEnter your Data Selection OR Press 0 to restart: ");
+      if (scan.hasNextInt()) {
+        choice = scan.nextInt();
+        if (choice >= 0 && choice <= 5) {
+          if (choice == 0) {
+            System.out.println("Switching to main terminal");
+            break;
+          } else if (choice == 1) {
 
-                        isSimDataBought = calculateAirtimeAndData(airtimeBal, dataValue, InternetData.getPrices()[1], InternetData.getDataCategories()[1], customerSim);
+            isSimDataBought = calculateAirtimeAndData(airtimeBal, dataValue, --choice, --choice, customerSim);
 
-                    } else if (choice == 3) {
-                        
-                        isSimDataBought = calculateAirtimeAndData(airtimeBal, dataValue, InternetData.getPrices()[2], InternetData.getDataCategories()[2], customerSim);
+          } else if (choice == 2) {
 
-                    } else if (choice == 4) {
-                        
-                        isSimDataBought = calculateAirtimeAndData(airtimeBal, dataValue, InternetData.getPrices()[3], InternetData.getDataCategories()[3], customerSim);
+            isSimDataBought = calculateAirtimeAndData(airtimeBal, dataValue, --choice, --choice, customerSim);
 
-                    } else if (choice == 5) {
-                        
-                        isSimDataBought = calculateAirtimeAndData(airtimeBal, dataValue, InternetData.getPrices()[4], InternetData.getDataCategories()[4], customerSim);
+          } else if (choice == 3) {
 
-                    }
-                    //success message
-                    if(isSimDataBought && beforeDataValueBal < dataValue){
-                        System.out.println("Your Data recharge was successful!");
-                    }else {
-                        System.out.println("Your Data recharge was not  successful!");
-                        continue;
-                    }
-                    
-                } else {
-                    System.out.println("***Invalid Selection! Enter a Valid Number***");
-                    continue;
-                }
-            } else {
-                System.out.println("Invalid Selection");
-                scan.nextLine();// accept the input
-            }            
-        }      
-    }
+            isSimDataBought = calculateAirtimeAndData(airtimeBal, dataValue, --choice, --choice, customerSim);
 
-    //Calculate Airtime and Data
-    public boolean calculateAirtimeAndData(double airtimeBal, double dataValue, double price, int dataCategory, CustomerSim customerSim) {
-       
-      if (airtimeBal > price){
-        //subtracting the data price from airtime
-        airtimeBal = airtimeBal - price;
-        //set new airtime balance
-        customerSim.getSim().setAcccountBal(airtimeBal);
-        //add to add value
-        dataValue = dataValue + dataCategory;
-        //set new data value
-        customerSim.getSim().setDataValue(dataValue);
+          } else if (choice == 4) {
 
-        return true;
-      }
-        
-        return false;
-    }
+            isSimDataBought = calculateAirtimeAndData(airtimeBal, dataValue, --choice, --choice, customerSim);
 
-    // Check Airtime
-    public void checkdata(CustomerSim customerSim) {
-        double dataVal, newVal;
-        String sIunit;
-        for (CustomerSim c : Database.getCustomerSims()) {
-            if (c != null) {
-                if (c.equals(customerSim)) {
-                    dataVal = customerSim.getSim().getDataValue();
-                    //converting mb to gb
-                    if(dataVal > 1000){
-                        newVal = dataVal / 1000;
-                        sIunit = "GB";
-                    }else{
-                        newVal = dataVal;
-                        sIunit = "MB";
-                    }
-                    //show data balance
-                    System.out.println("\n Dear " + customerSim.getCustomer().getName() + " Your Data Balance is: "
-                    + newVal+sIunit);
-                }
-            }
+          } else if (choice == 5) {
+
+            isSimDataBought = calculateAirtimeAndData(airtimeBal, dataValue, --choice, --choice, customerSim);
+
+          }
+
+          // success message
+          if (isSimDataBought && beforeDataValueBal < dataValue) {
+            System.out.println("Your Data recharge was successful!");
+          } else {
+            System.out.println("Your Data recharge was not  successful!");
+            continue;
+          }
+
+        } else {
+          System.out.println("***Invalid Selection! Enter a Valid Number***");
+          continue;
         }
+      } else {
+        System.out.println("Invalid Selection");
+        scan.nextLine();// accept the input
+      }
     }
+  }
+
+  // Calculate Airtime and Data
+  public boolean calculateAirtimeAndData(double airtimeBal, double dataValue, int priceIndex, int catIndex, CustomerSim customerSim) {
+
+    double price = InternetData.getPrices()[priceIndex];
+    int dataCategory = InternetData.getDataCategories()[catIndex];
+
+    if (airtimeBal > price) {
+      // subtracting the data price from airtime
+      airtimeBal = airtimeBal - price;
+      // set new airtime balance
+      customerSim.getSim().setAcccountBal(airtimeBal);
+      // add to add value
+      dataValue = dataValue + dataCategory;
+      // set new data value
+      customerSim.getSim().setDataValue(dataValue);
+
+      return true;
+    }
+
+    return false;
+  }
+
+  // Check Airtime
+  public void checkdata(CustomerSim customerSim) {
+    double dataVal, newVal;
+    String sIunit;
+    for (CustomerSim c : Database.getCustomerSims()) {
+      if (c != null) {
+        if (c.equals(customerSim)) {
+          dataVal = customerSim.getSim().getDataValue();
+          // converting mb to gb
+          if (dataVal > 1000) {
+            newVal = dataVal / 1000;
+            sIunit = "GB";
+          } else {
+            newVal = dataVal;
+            sIunit = "MB";
+          }
+          // show data balance
+          System.out.println("\n Dear " + customerSim.getCustomer().getName() + " Your Data Balance is: "
+              + newVal + sIunit);
+        }
+      }
+    }
+  }
 }
