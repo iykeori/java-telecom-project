@@ -52,8 +52,8 @@ public class App {
                             System.out.println("Enter your Customer Code: ");
                             String customerCode = scan.nextLine();
                             Customer customer = db.fetchCustomer(customerCode);
-                            CustomerSim simDetails = db.fetchVirtualSimDetails(customer);
-                            if (customer != null) {
+                            if (customer != null) { 
+                                CustomerSim simDetails = db.fetchVirtualSimDetails(customer);
                                 System.out.println("Welcome " + customer.getName());
 
                                 if (simDetails != null) {
@@ -70,9 +70,9 @@ public class App {
                                 }
                             } else {
                                 // if customer does not exit, register customer and get customer a sim
-                                customer = registerCustomer();
-                                db.saveCustomer(customer);
-                                getASim(customer);
+                                customer = registerCustomer(); // --> if customer registered succesfully
+                                db.saveCustomer(customer); //--> check to return true
+                                getASim(customer); // ---> check if it was successful
                                 System.out.println("\nYour registration was successful");
                                 displayServices();
                                 processServices(customer);
@@ -146,11 +146,11 @@ public class App {
     }
 
     private void processUssdCode(String code, CustomerSim customerSim) {
-        String buyAirtime = "*310#".trim();
-        String checkAirtimeBal = "*310*1#".trim();
-        String buyData = "*320#".trim();
-        String checkDataBal = "*320*1#".trim();
-        code = code.trim();
+        String buyAirtime = "*310#";
+        String checkAirtimeBal = "*310*1#";
+        String buyData = "*320#";
+        String checkDataBal = "*320*1#";
+
         if (code.equals(buyAirtime)) {
             //System.out.println("here-option-1");
             avs.displayAirtimeVouchersCat();
@@ -208,6 +208,7 @@ public class App {
             int simCount = displayInactiveSimNumbers();
             if (simCount == 0) {
                 System.out.println("\n***No Virtual Sim is Available. Press 0 to go to Main Options***\n");
+                break;
             }
 
             System.out.print("\nEnter option: ");
@@ -219,10 +220,10 @@ public class App {
                 if (select == 0) {
                     welcome();
                     break;
-                } else {
+                } else { // todo--> check range of select
                     // Get Sim ready for Booking
                     String[] detail = simCards[--select];
-                    VirtualSim sim = db.fetchSimById(detail[1]);
+                    VirtualSim sim = db.fetchSimById(detail[1]); //todo-> check if successfull
 
                     // save to CustomerSim DB
                     CustomerSim cs = db.saveCustomerSim(new CustomerSim(customer, sim));
