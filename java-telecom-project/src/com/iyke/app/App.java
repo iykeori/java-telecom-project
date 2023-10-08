@@ -71,11 +71,29 @@ public class App {
                             } else {
                                 // if customer does not exit, register customer and get customer a sim
                                 customer = registerCustomer(); // --> if customer registered succesfully
-                                db.saveCustomer(customer); //--> check to return true
-                                getASim(customer); // ---> check if it was successful
-                                System.out.println("\nYour registration was successful");
-                                displayServices();
-                                processServices(customer);
+                                if(customer != null){
+                                    customer = db.saveCustomer(customer);
+                                    if(customer != null){
+                                        VirtualSim sim = getASim(customer);
+                                        System.out.println("\nYour registration was successful");
+                                        if(sim != null){
+                                            displayServices();
+                                            processServices(customer);
+                                        }else{
+                                            System.out.println("you did not succed in getting a sim");
+                                        }
+                                    }else{
+                                        System.out.println(" Customer did not save");
+                                    }
+                                }else{
+                                    System.out.println("Customer Registration was Successful");
+                                }
+
+                                // db.saveCustomer(customer); //--> check to return true
+                                // getASim(customer); // ---> check if it was successful
+                                // System.out.println("\nYour registration was successful");
+                                // displayServices();
+                                // processServices(customer);
                             }
                         }
                     } else {
@@ -96,19 +114,6 @@ public class App {
         }
 
     }
-
-//  private void processServices(Customer customer) {
-//     String uCode = enterUssdCode();
-//     if (uCode != null) {
-//       if (db.fetchCustomerSim(customer) != null) {
-//         processUssdCode(enterUssdCode(), db.fetchCustomerSim(customer));
-//       } else {
-//         System.out.println("Customer not registered");
-//       }
-//     } else {
-//       System.out.println("Your request cannot be processed at this time. Try again later");
-//     }
-//   }
 
     private void processServices(Customer customer) {
         String uCode = enterUssdCode();
@@ -291,6 +296,7 @@ public class App {
                 System.out.println("Invalid input. Please try again.");
                 continue;
             }
+
             // Generate the customer code in the following format
             customerCode = Customer.generateCustomerCode();
 

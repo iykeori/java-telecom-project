@@ -26,6 +26,7 @@ public class InternetDataService {
         double airtimeBal = customerSim.getSim().getAccountBal();
         double dataValue = customerSim.getSim().getDataValue();
         double beforeDataValueBal = dataValue;
+        boolean isSimDataBought = false;
         
         while(true){
             System.out.println("\nEnter your Data Selection OR Press 0 to restart: ");
@@ -35,62 +36,33 @@ public class InternetDataService {
                     if (choice == 0){
                         System.out.println("Switching to main terminal");
                         break;
-                    }else if (choice == 1 && airtimeBal > InternetData.getPrices()[0]) {   
-                        //subtracting the data price from airtime
-                        airtimeBal = airtimeBal - InternetData.getPrices()[0];
-                        //set new airtime balance
-                        customerSim.getSim().setAcccountBal(airtimeBal);
-                        //add to add value
-                        dataValue = dataValue + InternetData.getDataCategories()[0];
-                        //set new data value
-                        customerSim.getSim().setDataValue(dataValue);
+                    }else if (choice == 1) {  
 
-                        //TODO:
-                        // boolean isSimDataBought = operationName(/* arguments */);
-                        // if (isSimDataBought) {
-                        //   //successfully bought data
-                        // } else {
-                        //   //something went wrong somewhere
-                        //   continue;
-                        // }
-                    } else if (choice == 2 && airtimeBal > InternetData.getPrices()[1]) {
-                        //subtracting the data price from airtime
-                        airtimeBal = airtimeBal - InternetData.getPrices()[1];
-                        //set new airtime balance
-                        customerSim.getSim().setAcccountBal(airtimeBal);
-                        //add to add value
-                        dataValue = dataValue + InternetData.getDataCategories()[1];
-                        //set new data value
-                        customerSim.getSim().setDataValue(dataValue);
-                    } else if (choice == 3 && airtimeBal > InternetData.getPrices()[2]) {
-                        airtimeBal = airtimeBal - InternetData.getPrices()[2];
-                        customerSim.getSim().setAcccountBal(airtimeBal);
-                        dataValue = dataValue + InternetData.getDataCategories()[2];
-                        customerSim.getSim().setDataValue(dataValue);
-                    } else if (choice == 4 && airtimeBal > InternetData.getPrices()[3]) {
-                        //subtracting the data price from airtime
-                        airtimeBal = airtimeBal - InternetData.getPrices()[3];
-                        //set new airtime balance
-                        customerSim.getSim().setAcccountBal(airtimeBal);
-                        //add to add value
-                        dataValue = dataValue + InternetData.getDataCategories()[3];
-                        //set new data value
-                        customerSim.getSim().setDataValue(dataValue);
-                    } else if (choice == 5 && airtimeBal > InternetData.getPrices()[4]) {
-                        //subtracting the data price from airtime
-                        airtimeBal = airtimeBal - InternetData.getPrices()[4];
-                        //set new airtime balance
-                        customerSim.getSim().setAcccountBal(airtimeBal);
-                        //add to add value
-                        dataValue = dataValue + InternetData.getDataCategories()[4];
-                        //set new data value
-                        customerSim.getSim().setDataValue(dataValue);
-                    }else{
-                        System.out.println("Insufficient Amount Please Recharge your account");
+                        isSimDataBought = calculateAirtimeAndData(airtimeBal, dataValue, InternetData.getPrices()[0], InternetData.getDataCategories()[0], customerSim);
+                    
+                    } else if (choice == 2) {
+
+                        isSimDataBought = calculateAirtimeAndData(airtimeBal, dataValue, InternetData.getPrices()[1], InternetData.getDataCategories()[1], customerSim);
+
+                    } else if (choice == 3) {
+                        
+                        isSimDataBought = calculateAirtimeAndData(airtimeBal, dataValue, InternetData.getPrices()[2], InternetData.getDataCategories()[2], customerSim);
+
+                    } else if (choice == 4) {
+                        
+                        isSimDataBought = calculateAirtimeAndData(airtimeBal, dataValue, InternetData.getPrices()[3], InternetData.getDataCategories()[3], customerSim);
+
+                    } else if (choice == 5) {
+                        
+                        isSimDataBought = calculateAirtimeAndData(airtimeBal, dataValue, InternetData.getPrices()[4], InternetData.getDataCategories()[4], customerSim);
+
                     }
                     //success message
-                    if(beforeDataValueBal < dataValue){
+                    if(isSimDataBought && beforeDataValueBal < dataValue){
                         System.out.println("Your Data recharge was successful!");
+                    }else {
+                        System.out.println("Your Data recharge was not  successful!");
+                        continue;
                     }
                     
                 } else {
@@ -104,12 +76,23 @@ public class InternetDataService {
         }      
     }
 
-    //Write a clean and not repeat yourself
-    public boolean operationName(/*define params here...*/) {
-      //carry out the implementation here and invoke method where necessary to get the code working...
-      //if we could save the data successfully, return true else (fro any reasons) return false.
-      //TODO: do the implementation here.
-      return false;
+    //Calculate Airtime and Data
+    public boolean calculateAirtimeAndData(double airtimeBal, double dataValue, double price, int dataCategory, CustomerSim customerSim) {
+       
+      if (airtimeBal > price){
+        //subtracting the data price from airtime
+        airtimeBal = airtimeBal - price;
+        //set new airtime balance
+        customerSim.getSim().setAcccountBal(airtimeBal);
+        //add to add value
+        dataValue = dataValue + dataCategory;
+        //set new data value
+        customerSim.getSim().setDataValue(dataValue);
+
+        return true;
+      }
+        
+        return false;
     }
 
     // Check Airtime
