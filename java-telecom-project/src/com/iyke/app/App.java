@@ -63,14 +63,18 @@ public class App {
                                     continue;
                                 } else {
                                     // if customer does not have a virtual number, let him purchase VN
-                                    getASim(customer);
-                                    // show services
-                                    displayServices();
-                                    processServices(customer);
+                                    VirtualSim sim = getASim(customer);
+                                    System.out.println("\nYour registration was successful");
+                                    if(sim != null){
+                                        displayServices();
+                                        processServices(customer);
+                                    }else{
+                                        System.out.println("you did not succed in getting a sim");
+                                    }
                                 }
                             } else {
                                 // if customer does not exit, register customer and get customer a sim
-                                customer = registerCustomer(); // --> if customer registered succesfully
+                                customer = registerCustomer(); 
                                 if(customer != null){
                                     customer = db.saveCustomer(customer);
                                     if(customer != null){
@@ -88,25 +92,17 @@ public class App {
                                 }else{
                                     System.out.println("Customer Registration was Successful");
                                 }
-
-                                // db.saveCustomer(customer); //--> check to return true
-                                // getASim(customer); // ---> check if it was successful
-                                // System.out.println("\nYour registration was successful");
-                                // displayServices();
-                                // processServices(customer);
                             }
                         }
                     } else {
                         System.out.println("Number does not exist!");
                         continue;
                     }
-
                 } else {
-                System.out.println("Invalid input. Please enter a number");
-                scan.nextLine();// consume the input
-                continue;
+                    System.out.println("Invalid input. Please enter a number");
+                    scan.nextLine();// consume the input
+                    continue;
                 }
-
             } catch (Exception e) {
                 System.out.println("Exception: " + e.getMessage());
                 continue;
@@ -226,26 +222,29 @@ public class App {
                 if (select == 0) {
                     welcome();
                     break;
-                } else { // todo--> check range of select
+                } else if (select >= 1 && select <= simCount) { 
                     // Get Sim ready for Booking
                     String[] detail = simCards[--select];
-                    VirtualSim sim = db.fetchSimById(detail[1]); //todo-> check if successfull
+                    VirtualSim sim = db.fetchSimById(detail[1]); 
+                    
+                    if(sim != null){
+                       // save to CustomerSim DB
+                        CustomerSim cs = db.saveCustomerSim(new CustomerSim(customer, sim)); 
+                        if (cs != null) {
+                            // change virtual sim active status to 1
+                            sim.setSimActiveState(1);
+                            String customerPhoneno = sim.getSimNumber();
+                            customer.setPhone(customerPhoneno);
+                            System.out.println("\nCongratulations! Your Virtual Number is " + cs.getSim().getSimNumber());
+                        } else {
+                            System.out.println("\nSorry! You can't get this number now");
+                            continue;
+                        }
 
-                    // save to CustomerSim DB
-                    CustomerSim cs = db.saveCustomerSim(new CustomerSim(customer, sim));
-
-                    if (cs != null) {
-                        // change virtual sim active status to 1
-                        sim.setSimActiveState(1);
-                        String customerPhoneno = sim.getSimNumber();
-                        customer.setPhone(customerPhoneno);
-                        System.out.println("\nCongratulations! Your Virtual Number is " + cs.getSim().getSimNumber());
-                    } else {
-                        System.out.println("\nSorry! You can't get this number now");
-                        continue;
-                    }
-
-                    return sim;
+                        return sim;
+                    }else{
+                        System.out.println("Failed to Fetch sim details");
+                    }  
                 }
             } else {
                 System.out.println("Invalid input. Please select a number!");

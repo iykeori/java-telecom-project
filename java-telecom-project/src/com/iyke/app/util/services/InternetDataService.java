@@ -26,7 +26,7 @@ public class InternetDataService {
     double airtimeBal = customerSim.getSim().getAccountBal();
     double dataValue = customerSim.getSim().getDataValue();
     double beforeDataValueBal = dataValue;
-    boolean isSimDataBought = false;
+    //boolean isSimDataBought = false;
 
     while (true) {
       System.out.println("\nEnter your Data Selection OR Press 0 to restart: ");
@@ -38,28 +38,28 @@ public class InternetDataService {
             break;
           } else if (choice == 1) {
 
-            isSimDataBought = calculateAirtimeAndData(airtimeBal, dataValue, --choice, --choice, customerSim);
+            dataValue = calculateAirtimeAndData(airtimeBal, dataValue, --choice, --choice, customerSim);
 
           } else if (choice == 2) {
 
-            isSimDataBought = calculateAirtimeAndData(airtimeBal, dataValue, --choice, --choice, customerSim);
+            dataValue = calculateAirtimeAndData(airtimeBal, dataValue, --choice, --choice, customerSim);
 
           } else if (choice == 3) {
 
-            isSimDataBought = calculateAirtimeAndData(airtimeBal, dataValue, --choice, --choice, customerSim);
+            dataValue = calculateAirtimeAndData(airtimeBal, dataValue, --choice, --choice, customerSim);
 
           } else if (choice == 4) {
 
-            isSimDataBought = calculateAirtimeAndData(airtimeBal, dataValue, --choice, --choice, customerSim);
+            dataValue = calculateAirtimeAndData(airtimeBal, dataValue, --choice, --choice, customerSim);
 
           } else if (choice == 5) {
 
-            isSimDataBought = calculateAirtimeAndData(airtimeBal, dataValue, --choice, --choice, customerSim);
+            dataValue = calculateAirtimeAndData(airtimeBal, dataValue, --choice, --choice, customerSim);
 
           }
 
           // success message
-          if (isSimDataBought && beforeDataValueBal < dataValue) {
+          if (beforeDataValueBal < dataValue) {
             System.out.println("Your Data recharge was successful!");
           } else {
             System.out.println("Your Data recharge was not  successful!");
@@ -78,7 +78,7 @@ public class InternetDataService {
   }
 
   // Calculate Airtime and Data
-  public boolean calculateAirtimeAndData(double airtimeBal, double dataValue, int priceIndex, int catIndex, CustomerSim customerSim) {
+  public double calculateAirtimeAndData(double airtimeBal, double dataValue, int priceIndex, int catIndex, CustomerSim customerSim) {
 
     double price = InternetData.getPrices()[priceIndex];
     int dataCategory = InternetData.getDataCategories()[catIndex];
@@ -93,10 +93,10 @@ public class InternetDataService {
       // set new data value
       customerSim.getSim().setDataValue(dataValue);
 
-      return true;
+      return dataValue;
     }
 
-    return false;
+    return dataValue;
   }
 
   // Check Airtime

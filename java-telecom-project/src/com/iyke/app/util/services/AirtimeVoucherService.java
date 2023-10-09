@@ -23,7 +23,7 @@ public class AirtimeVoucherService {
     //System.out.println("\n Select an Airtime to Purchase OR Press 0 to restart");
     double accountBal = customerSim.getSim().getAccountBal();
     double beforeAccountBal = accountBal;  
-    Boolean isSimAirtimeBought = false;
+    //Boolean isSimAirtimeBought = false;
 
     while(true){
       System.out.println("\nEnter your Airtime Selection OR Press 0 to restart: ");
@@ -36,31 +36,31 @@ public class AirtimeVoucherService {
             break;
           }else if (choice == 1) {
 
-            isSimAirtimeBought = calculateAirtime(accountBal, AirtimeVoucher.getPrices()[0], customerSim);
+            accountBal = calculateAirtime(accountBal, --choice, customerSim);
 
           } else if (choice == 2) {
 
-            isSimAirtimeBought = calculateAirtime(accountBal, AirtimeVoucher.getPrices()[1], customerSim);
+            accountBal = calculateAirtime(accountBal, --choice, customerSim);
 
           } else if (choice == 3) {
 
-            isSimAirtimeBought = calculateAirtime(accountBal, AirtimeVoucher.getPrices()[2], customerSim);
+            accountBal = calculateAirtime(accountBal, --choice, customerSim);
 
           } else if (choice == 4) {
 
-            isSimAirtimeBought = calculateAirtime(accountBal, AirtimeVoucher.getPrices()[3], customerSim);
+            accountBal = calculateAirtime(accountBal, --choice, customerSim);
 
           } else if (choice == 5) {
 
-            isSimAirtimeBought = calculateAirtime(accountBal, AirtimeVoucher.getPrices()[4], customerSim);
+            accountBal = calculateAirtime(accountBal, --choice, customerSim);
 
           } 
 
           //Success message
-          if(isSimAirtimeBought && beforeAccountBal < accountBal){
+          if(beforeAccountBal < accountBal){
             System.out.println("Your recharge was successful!");
           } 
-                  
+
         } else {
           System.out.println("***Invalid Selection! Enter a Valid Number***");
           continue;
@@ -74,12 +74,14 @@ public class AirtimeVoucherService {
   }
 
   //Calculate Airtime
-  public boolean calculateAirtime(double accountBal, double price, CustomerSim customerSim){
+  public double calculateAirtime(double accountBal, int priceIndex, CustomerSim customerSim){
+
+    double price = AirtimeVoucher.getPrices()[priceIndex];
     //add new airtime to last airtime balance
     accountBal = accountBal + price;
     //set new account balance
     customerSim.getSim().setAcccountBal(accountBal);
-    return true;
+    return accountBal;
   }
 
   // Check Airtime
